@@ -2,3 +2,4 @@
 node_modules/
 tsconfig.tsbuildinfo
 .env
+.docker/zsh/history/.zsh_history
