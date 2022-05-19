@@ -21,7 +21,9 @@
 		"terminal.integrated.defaultProfile.linux": "bash"
 	},
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": []
+	"extensions": [
+		"firsttris.vscode-jest-runner"
+	]
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Uncomment the next line if you want start specific services in your Docker Compose config.
