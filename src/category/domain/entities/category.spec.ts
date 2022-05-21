@@ -124,4 +124,34 @@ describe("Category Unit Tests", () => {
     });
     expect(category.created_at).toBe(created_at);
   });
+
+  it("should update a category", () => {
+    const category = new Category({
+      name: "Movie",
+      description: "Terror Movie",
+    });
+    category.update("Documentary", "Some Documentary");
+    expect(category.name).toBe("Documentary");
+    expect(category.description).toBe("Some Documentary");
+  });
+
+  it("should activate a category", () => {
+    const category = new Category({
+      name: "Movie",
+      description: "Terror Movie",
+      is_active: false,
+    });
+    category.activate();
+    expect(category.is_active).toBeTruthy();
+  });
+
+  it("should desactivate a category", () => {
+    const category = new Category({
+      name: "Movie",
+      description: "Terror Movie",
+      is_active: true,
+    });
+    category.desactivate();
+    expect(category.is_active).toBeFalsy();
+  });
 });
