@@ -165,4 +165,42 @@ describe("Validator rules unit tests", () => {
       });
     });
   });
+
+  it("should throw a validation error when combine two or more validation rules", () => {
+    let validator = ValidatorRules.value(null, "field");
+    expect(() => validator.required().string()).toThrow(
+      new ValidationError("The field is required")
+    );
+    validator = ValidatorRules.value(5, "field");
+    expect(() => validator.required().string()).toThrow(
+      new ValidationError("The field must be a string")
+    );
+    validator = ValidatorRules.value("abcedf", "field");
+    expect(() => validator.required().string().maxLength(5)).toThrow(
+      new ValidationError("The field must be less or equal than 5 characters")
+    );
+    validator = ValidatorRules.value(null, "field");
+    expect(() => validator.required().boolean()).toThrow(
+      new ValidationError("The field is required")
+    );
+    validator = ValidatorRules.value(5, "field");
+    expect(() => validator.required().boolean()).toThrow(
+      new ValidationError("The field must be a boolean")
+    );
+  });
+
+  it("should valid when combine two or more validation rules", () => {
+    expect.assertions(0);
+    ValidatorRules.value(null, "field").string();
+    ValidatorRules.value(undefined, "field").string();
+    ValidatorRules.value("test", "field").required().string();
+    ValidatorRules.value(null, "field").string().maxLength(5);
+    ValidatorRules.value(undefined, "field").string().maxLength(5);
+    ValidatorRules.value("abcde", "field").required().string().maxLength(5);
+
+    ValidatorRules.value(null, "field").boolean();
+    ValidatorRules.value(undefined, "field").boolean();
+    ValidatorRules.value(true, "field").required().boolean();
+    ValidatorRules.value(false, "field").required().boolean();
+  });
 });
