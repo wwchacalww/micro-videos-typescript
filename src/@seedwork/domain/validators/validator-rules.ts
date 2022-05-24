@@ -1,7 +1,7 @@
-import ValidationError from "../domain/errors/validation-error";
+import { ValidationError } from "../errors/validation-error";
 
 export default class ValidatorRules {
-  constructor(private value: any, private property: string) {}
+  constructor(private value: any, private property: string) { }
 
   static value(value: any, property: string) {
     return new ValidatorRules(value, property);
