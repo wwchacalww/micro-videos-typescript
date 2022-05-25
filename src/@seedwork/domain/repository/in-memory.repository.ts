@@ -31,7 +31,7 @@ export default abstract class InMemoryRepository<E extends Entity>
     const _id = `${id}`;
     await this._get(_id);
     const indexFound = this.items.findIndex((item) => item.id === _id);
-    this.items.slice(indexFound, 1);
+    this.items.splice(indexFound, 1);
   }
 
   protected async _get(id: string): Promise<E> {
