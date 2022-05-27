@@ -9,7 +9,7 @@ export interface RepositoryInterface<E extends Entity> {
   delete(id: string | UniqueEntityId): Promise<void>;
 }
 
-type SortDirection = "asc" | "desc";
+export type SortDirection = "asc" | "desc";
 export type SearchProps<Filter = string> = {
   page?: number;
   per_page?: number;
@@ -61,7 +61,7 @@ export class SearchParams {
     this._per_page = _per_page;
   }
 
-  get sort() {
+  get sort(): string | null {
     return this._sort;
   }
   private set sort(value: string | null) {
@@ -69,7 +69,7 @@ export class SearchParams {
       value === null || value === undefined || value === "" ? null : `${value}`;
   }
 
-  get sort_dir() {
+  get sort_dir(): SortDirection | null {
     return this._sort_dir;
   }
   private set sort_dir(value: SortDirection | null) {
@@ -82,7 +82,7 @@ export class SearchParams {
     this._sort_dir = dir !== "asc" && dir !== "desc" ? "asc" : dir;
   }
 
-  get filter() {
+  get filter(): string | null {
     return this._filter;
   }
   private set filter(value: string | null) {
@@ -142,5 +142,6 @@ export interface SearchableRepositoryInterface<
   SearchInput = SearchParams,
   SearchOutput = SearchResult<E, Filter>
 > extends RepositoryInterface<E> {
+  sortableFields: string[];
   search(props: SearchInput): Promise<SearchOutput>;
 }
