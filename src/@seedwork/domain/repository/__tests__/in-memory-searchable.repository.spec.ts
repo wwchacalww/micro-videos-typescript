@@ -1,5 +1,6 @@
 import Entity from "../../entity/entity";
 import { InMemorySearchableRepository } from "../in-memory.repository";
+import { SearchParams, SearchResult } from "../repository-contracts";
 
 type StubEntityProps = {
   name: string;
@@ -115,5 +116,215 @@ describe("InMemorySearchableRepository Unit Test", () => {
     });
   });
 
-  describe("search method", () => {});
+  describe("search method", () => {
+    it("should apply only paginate when other params are null", async () => {
+      const entity = new StubEntity({ name: "test", price: 1 });
+      const items = Array(16).fill(entity);
+      repository.items = items;
+      const result = await repository.search(new SearchParams());
+      expect(result).toStrictEqual(
+        new SearchResult({
+          items: Array(15).fill(entity),
+          total: 16,
+          current_page: 1,
+          per_page: 15,
+          sort: null,
+          sort_dir: null,
+          filter: null,
+        })
+      );
+    });
+
+    it("should apply paginate and filter", async () => {
+      const items = [
+        new StubEntity({ name: "banana", price: 1 }),
+        new StubEntity({ name: "Amora", price: 2 }),
+        new StubEntity({ name: "Abelha", price: 3 }),
+        new StubEntity({ name: "BANANA", price: 4 }),
+        new StubEntity({ name: "Abacaxi", price: 5 }),
+        new StubEntity({ name: "BAnaNa", price: 6 }),
+        new StubEntity({ name: "Acerola", price: 7 }),
+      ];
+      repository.items = items;
+      let result = await repository.search(
+        new SearchParams({
+          page: 1,
+          per_page: 2,
+          filter: "BANANA",
+        })
+      );
+      expect(result).toStrictEqual(
+        new SearchResult({
+          items: [items[0], items[3]],
+          total: 3,
+          current_page: 1,
+          per_page: 2,
+          sort: null,
+          sort_dir: null,
+          filter: "BANANA",
+        })
+      );
+
+      result = await repository.search(
+        new SearchParams({
+          page: 2,
+          per_page: 2,
+          filter: "BANANA",
+        })
+      );
+      expect(result).toStrictEqual(
+        new SearchResult({
+          items: [items[5]],
+          total: 3,
+          current_page: 2,
+          per_page: 2,
+          sort: null,
+          sort_dir: null,
+          filter: "BANANA",
+        })
+      );
+    });
+
+    it("should apply paginate and sort", async () => {
+      const items = [
+        new StubEntity({ name: "Cebola", price: 1 }),
+        new StubEntity({ name: "Amora", price: 2 }),
+        new StubEntity({ name: "Abelha", price: 3 }),
+        new StubEntity({ name: "Maracujá", price: 4 }),
+        new StubEntity({ name: "Cenoura", price: 5 }),
+        new StubEntity({ name: "Goiaba", price: 6 }),
+        new StubEntity({ name: "Acerola", price: 7 }),
+      ];
+      repository.items = items;
+
+      const arrange = [
+        {
+          params: new SearchParams({
+            page: 1,
+            per_page: 2,
+            sort: "name",
+          }),
+          result: new SearchResult({
+            items: [items[2], items[6]],
+            total: 7,
+            current_page: 1,
+            per_page: 2,
+            sort: "name",
+            sort_dir: "asc",
+            filter: null,
+          }),
+        },
+        {
+          params: new SearchParams({
+            page: 2,
+            per_page: 2,
+            sort: "name",
+          }),
+          result: new SearchResult({
+            items: [items[1], items[0]],
+            total: 7,
+            current_page: 2,
+            per_page: 2,
+            sort: "name",
+            sort_dir: "asc",
+            filter: null,
+          }),
+        },
+        {
+          params: new SearchParams({
+            page: 1,
+            per_page: 2,
+            sort: "name",
+            sort_dir: "desc",
+          }),
+          result: new SearchResult({
+            items: [items[3], items[5]],
+            total: 7,
+            current_page: 1,
+            per_page: 2,
+            sort: "name",
+            sort_dir: "desc",
+            filter: null,
+          }),
+        },
+        {
+          params: new SearchParams({
+            page: 2,
+            per_page: 2,
+            sort: "name",
+            sort_dir: "desc",
+          }),
+          result: new SearchResult({
+            items: [items[4], items[0]],
+            total: 7,
+            current_page: 2,
+            per_page: 2,
+            sort: "name",
+            sort_dir: "desc",
+            filter: null,
+          }),
+        },
+      ];
+
+      for (const i of arrange) {
+        let result = await repository.search(i.params);
+        expect(result).toStrictEqual(i.result);
+      }
+    });
+
+    it("should apply paginate, filter and sort", async () => {
+      const items = [
+        new StubEntity({ name: "cebola", price: 1 }),
+        new StubEntity({ name: "Amora", price: 2 }),
+        new StubEntity({ name: "CeBOLa", price: 3 }),
+        new StubEntity({ name: "Maracujá", price: 4 }),
+        new StubEntity({ name: "CEBOLA", price: 5 }),
+        new StubEntity({ name: "Goiaba", price: 6 }),
+        new StubEntity({ name: "Acerola", price: 7 }),
+      ];
+      repository.items = items;
+
+      const arrange = [
+        {
+          params: new SearchParams({
+            page: 1,
+            per_page: 2,
+            sort: "name",
+            filter: "CEBOLA",
+          }),
+          result: new SearchResult({
+            items: [items[4], items[2]],
+            total: 3,
+            current_page: 1,
+            per_page: 2,
+            sort: "name",
+            sort_dir: "asc",
+            filter: "CEBOLA",
+          }),
+        },
+        {
+          params: new SearchParams({
+            page: 2,
+            per_page: 2,
+            sort: "name",
+            filter: "CEBOLA",
+          }),
+          result: new SearchResult({
+            items: [items[0]],
+            total: 3,
+            current_page: 2,
+            per_page: 2,
+            sort: "name",
+            sort_dir: "asc",
+            filter: "CEBOLA",
+          }),
+        },
+      ];
+
+      for (const i of arrange) {
+        let result = await repository.search(i.params);
+        expect(result).toStrictEqual(i.result);
+      }
+    });
+  });
 });
