@@ -1,4 +1,3 @@
-import { EntityValidationError, ValidationError } from "../../../@seedwork/domain/errors/validation-error";
 import { Category } from "./category";
 
 describe("Category Integration Tests", () => {
@@ -9,7 +8,7 @@ describe("Category Integration Tests", () => {
           "name should not be empty",
           "name must be a string",
           "name must be shorter than or equal to 255 characters",
-        ]
+        ],
       });
 
       expect(() => new Category({ name: undefined })).containsErrorMessages({
@@ -17,26 +16,24 @@ describe("Category Integration Tests", () => {
           "name should not be empty",
           "name must be a string",
           "name must be shorter than or equal to 255 characters",
-        ]
+        ],
       });
 
       expect(() => new Category({ name: "" })).containsErrorMessages({
-        name: [
-          "name should not be empty",
-        ]
+        name: ["name should not be empty"],
       });
 
       expect(() => new Category({ name: 5 as any })).containsErrorMessages({
         name: [
           "name must be a string",
           "name must be shorter than or equal to 255 characters",
-        ]
+        ],
       });
 
-      expect(() => new Category({ name: "a".repeat(256) })).containsErrorMessages({
-        name: [
-          "name must be shorter than or equal to 255 characters",
-        ]
+      expect(
+        () => new Category({ name: "a".repeat(256) })
+      ).containsErrorMessages({
+        name: ["name must be shorter than or equal to 255 characters"],
       });
     });
 
@@ -44,9 +41,7 @@ describe("Category Integration Tests", () => {
       expect(
         () => new Category({ name: "Test", description: 5 as any })
       ).containsErrorMessages({
-        description: [
-          "description must be a string",
-        ]
+        description: ["description must be a string"],
       });
     });
 
@@ -59,10 +54,8 @@ describe("Category Integration Tests", () => {
             is_active: "true" as any,
           })
       ).containsErrorMessages({
-        is_active: [
-          "is_active must be a boolean value",
-        ]
-      });;
+        is_active: ["is_active must be a boolean value"],
+      });
     });
   });
   describe("update method", () => {
@@ -73,39 +66,35 @@ describe("Category Integration Tests", () => {
           "name should not be empty",
           "name must be a string",
           "name must be shorter than or equal to 255 characters",
-        ]
+        ],
       });
-      expect(() => category.update(undefined, undefined)).containsErrorMessages({
-        name: [
-          "name should not be empty",
-          "name must be a string",
-          "name must be shorter than or equal to 255 characters",
-        ]
-      });
+      expect(() => category.update(undefined, undefined)).containsErrorMessages(
+        {
+          name: [
+            "name should not be empty",
+            "name must be a string",
+            "name must be shorter than or equal to 255 characters",
+          ],
+        }
+      );
       expect(() => category.update("", "")).containsErrorMessages({
-        name: [
-          "name should not be empty",
-        ]
+        name: ["name should not be empty"],
       });
       expect(() => category.update(5 as any, 5 as any)).containsErrorMessages({
         name: [
           "name must be a string",
           "name must be shorter than or equal to 255 characters",
-        ]
+        ],
       });
       expect(() => category.update("a".repeat(256))).containsErrorMessages({
-        name: [
-          "name must be shorter than or equal to 255 characters",
-        ]
+        name: ["name must be shorter than or equal to 255 characters"],
       });
     });
 
     it("should a invalid category using description property", () => {
       const category = new Category({ name: "Movie", description: "Terror" });
       expect(() => category.update("Test", 5 as any)).containsErrorMessages({
-        description: [
-          "description must be a string",
-        ]
+        description: ["description must be a string"],
       });
     });
   });
