@@ -1,10 +1,10 @@
-import { Category } from "category/domain/entities/category";
+import { Category } from "../../domain/entities/category";
 import CategoryRepository from "../../domain/repository/category.repository";
 
 export type Input = {
   name: string;
-  description: string;
-  is_active: boolean;
+  description?: string;
+  is_active?: boolean;
 };
 
 export type Output = {
