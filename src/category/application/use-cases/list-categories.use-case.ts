@@ -1,4 +1,4 @@
-import CategoryRepository from "../../domain/repository/category.repository";
+import { CategoryRepository } from "../../domain/repository/category.repository";
 import { CategoryOutput, CategoryOutputMapper } from "../dto/category-output";
 import UseCase from "../../../@seedwork/application/use-case";
 import { SearchInputDto } from "../../../@seedwork/application/dto/search-input";
@@ -11,7 +11,7 @@ export type Input = SearchInputDto;
 
 export type Output = PaginationOutputDto<CategoryOutput>;
 
-export default class ListCategoryUseCase implements UseCase<Input, Output> {
+export default class ListCategoriesUseCase implements UseCase<Input, Output> {
   constructor(private categoryRepo: CategoryRepository.Repository) {}
   async execute(input: Input): Promise<Output> {
     const params = new CategoryRepository.SearchParams(input);
@@ -24,7 +24,7 @@ export default class ListCategoryUseCase implements UseCase<Input, Output> {
       CategoryOutputMapper.toOutput(i)
     );
 
-    const pagination = PaginationOutputMapper.toPaginationOutput(searchResult);
+    const pagination = PaginationOutputMapper.toOutput(searchResult);
     return {
       items,
       ...pagination,

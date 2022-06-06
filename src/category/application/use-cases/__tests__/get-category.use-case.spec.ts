@@ -1,5 +1,4 @@
 import GetCategoryUseCase from "../get-category.use-case";
-import CreateCategoryUseCase from "../create-category.use-case";
 import CategoryInMemoryRepository from "../../../infra/repository/category-in-memory.repository";
 import NotFoundError from "../../../../@seedwork/domain/errors/not-found.error";
 import { Category } from "../../../domain/entities/category";
