@@ -87,7 +87,9 @@ export class SearchParams<Filter = string> {
   }
   private set filter(value: Filter | null) {
     this._filter =
-      value === null || value === undefined || (value as unknown) === "" ? null : `${value}` as any;
+      value === null || value === undefined || (value as unknown) === ""
+        ? null
+        : (`${value}` as any);
   }
 }
 
@@ -101,7 +103,7 @@ type SearchResultProps<E extends Entity, Filter> = {
   filter: Filter | null;
 };
 
-export class SearchResult<E extends Entity, Filter = string> {
+export class SearchResult<E extends Entity = Entity, Filter = string> {
   readonly items: E[];
   readonly total: number;
   readonly current_page: number;
