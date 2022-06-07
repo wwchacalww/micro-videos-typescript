@@ -12,8 +12,8 @@ export type CategoryProperties = {
 
 export class Category extends Entity<CategoryProperties> {
   constructor(public readonly props: CategoryProperties, id?: UniqueEntityId) {
-    Category.validate(props);
     super(props, id);
+    Category.validate(props);
     this.description = this.props.description;
     this.props.is_active = this.props.is_active ?? true;
     this.props.created_at = this.props.created_at ?? new Date();
@@ -37,7 +37,7 @@ export class Category extends Entity<CategoryProperties> {
   static validate(props: CategoryProperties) {
     const validator = CategoryValidatorFactory.create();
     const isValid = validator.validate(props);
-    if(!isValid){
+    if (!isValid) {
       throw new EntityValidationError(validator.errors);
     }
   }
