@@ -1,19 +1,17 @@
 # Curso Full Cycle 3.0 : Microsserviço: Administração do Catálogo de Vídeos com Typescript (Backend)
 
-## Repositório e Validação da Entidade Categoria
+## Cobertura de testes Typescript e Casos de uso de categoria
 
 ### Desafio
 
-Neste desafio:<br>
+Neste desafio você deverá criar os casos de uso de categoria:<br>
 
-- [X] implemente a validação/testes na entidade Categoria usando o Class Validator como foi feito no curso.
+- [X] Criar uma categoria
+- [X] Atualizar uma categoria
+- [X] Excluir uma categoria
+- [X] Buscar categorias
+- [X] Pegar uma categoria
+  
+  Por fim, devemos ter um projeto passando liso nos testes e em erros de typescript. Você deverá configurar o Jest para não passar nos testes se caso menos de 80% do código não estiver coberto pelos testes e configurar um comando NPM "tsc:check" para verificar erros de TypeScript no projeto.
 
-- [X] Além disto, crie a abstração do repositório InMemory e implemente o repositório de Categoria com os testes.
-
-No repositório de Categoria temos os seguintes requisitos:
-
-- [X] Poderemos filtrar categorias por seu nome, qualquer termo passado deverá ser pesquisa do começo ao fim do valor do nome.
-- [X] Se no filtro não existir um parâmetro de ordenação, precisa ordenar por padrão pelo created_at.
-- [X] Antes de enviar seu projeto certifique-se que seus testes estão todos passando.
-
-
+  Para passar neste desafio, todos os testes deverão passar e não deverá ter nenhum erro de TypeScript.
