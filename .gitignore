@@ -4,3 +4,4 @@ tsconfig.tsbuildinfo
 .env
 .docker/zsh/history/.zsh_history
 __coverage
+dist/
