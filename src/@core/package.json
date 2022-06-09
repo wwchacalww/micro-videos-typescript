@@ -1,0 +1,71 @@
+{
+  "name": "@fc/micro-videos",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "imports": {
+    "#seedwork": "./dist/@seedwork/*.js",
+    "#category": "./dist/@category/*.js"
+  },
+  "exports": {
+    "./@seedwork/application/": "./dist/@seedwork/application/index.js",
+    "./@seedwork/domain/": "./dist/@seedwork/domain/index.js",
+    "./category/application/": "./dist/category/application/index.js",
+    "./category/domain": "./dist/category/domain/index.js",
+    "./category/infra": "./dist/category/infra/index.js"
+  },
+  "typesVersions": {
+    ">= 4.0": {
+      "./@seedwork/application/": [
+        "./dist/@seedwork/application/index.d.ts"
+      ],
+      "./@seedwork/domain/": [
+        "./dist/@seedwork/domain/index.d.ts"
+      ],
+      "category/application": [
+        "./dist/category/application/index.d.ts"
+      ],
+      "category/domain": [
+        "./dist/category/domain/index.d.ts"
+      ],
+      "category/infra": [
+        "./dist/category/infra/index.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "ts-node": "ts-node",
+    "tsc": "tsc",
+    "build": "tsc -b ./tsconfig.json",
+    "build:w": "tsc -b ./tsconfig.json -w",
+    "tsc:check": "npm run tsc -- --noEmit",
+    "clean:tsc": "rm tsconfig.tsbuildinfo",
+    "test": "jest",
+    "test:cov": "npm run test -- --coverage",
+    "cti": "cti",
+    "cti:@core": "sh ./cti.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@swc/core": "^1.2.197",
+    "@swc/jest": "^0.2.21",
+    "@types/jest": "^27.5.1",
+    "@types/lodash": "^4.14.182",
+    "@types/node": "14.14.31",
+    "@types/uuid": "^8.3.4",
+    "create-ts-index": "^1.14.0",
+    "jest": "^27.5.1",
+    "lodash": "^4.17.21",
+    "regenerator-runtime": "^0.13.9",
+    "ts-node": "^10.7.0",
+    "ttypescript": "^1.5.13",
+    "typescript": "^4.6.4",
+    "typescript-transform-paths": "^3.3.1"
+  },
+  "dependencies": {
+    "class-validator": "^0.13.2",
+    "uuid": "^8.3.2"
+  }
+}
