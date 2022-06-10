@@ -4,22 +4,22 @@
   "description": "",
   "main": "index.js",
   "imports": {
-    "#seedwork": "./dist/@seedwork/*.js",
-    "#category": "./dist/@category/*.js"
+    "#seedwork/*": "./dist/@seedwork/*.js",
+    "#category/*": "./dist/category/*.js"
   },
   "exports": {
-    "./@seedwork/application/": "./dist/@seedwork/application/index.js",
-    "./@seedwork/domain/": "./dist/@seedwork/domain/index.js",
-    "./category/application/": "./dist/category/application/index.js",
+    "./@seedwork/application": "./dist/@seedwork/application/index.js",
+    "./@seedwork/domain": "./dist/@seedwork/domain/index.js",
+    "./category/application": "./dist/category/application/index.js",
     "./category/domain": "./dist/category/domain/index.js",
     "./category/infra": "./dist/category/infra/index.js"
   },
   "typesVersions": {
-    ">= 4.0": {
-      "./@seedwork/application/": [
+    ">=4.0": {
+      "@seedwork/application": [
         "./dist/@seedwork/application/index.d.ts"
       ],
-      "./@seedwork/domain/": [
+      "@seedwork/domain": [
         "./dist/@seedwork/domain/index.d.ts"
       ],
       "category/application": [
