@@ -1,8 +1,10 @@
-import { CreateCategoryUseCase } from '@fc/micro-videos/category/application';
-import { ListCategoriesUseCase } from '@fc/micro-videos/category/application';
-import { GetCategoryUseCase } from '@fc/micro-videos/category/application';
-import { UpdateCategoryUseCase } from '@fc/micro-videos/category/application';
-import { DeleteCategoryUseCase } from '@fc/micro-videos/category/application';
+import {
+  CreateCategoryUseCase,
+  ListCategoriesUseCase,
+  GetCategoryUseCase,
+  UpdateCategoryUseCase,
+  DeleteCategoryUseCase,
+} from '@fc/micro-videos/category/application';
 import {
   Controller,
   Get,
