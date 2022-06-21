@@ -37,6 +37,7 @@ describe("SequelizeModelFactory Unit Tests", () => {
     let model = await StubModel.factory().create();
     expect(uuidValidate(model.id)).toBeDefined();
     expect(model.name).not.toBeNull();
+    expect(model.id).not.toBeNull();
     expect(StubModel.mockFactory).toHaveBeenCalled();
     let modelFound = await StubModel.findByPk(model.id);
     expect(model.id).toEqual(modelFound.id);
@@ -50,5 +51,21 @@ describe("SequelizeModelFactory Unit Tests", () => {
     expect(StubModel.mockFactory).toHaveBeenCalledTimes(1);
     modelFound = await StubModel.findByPk(model.id);
     expect(modelFound.id).toEqual("000a6c80-3659-44de-b763-29d53f0212a7");
+  });
+
+  test("make method", async () => {
+    let model = await StubModel.factory().make();
+    expect(uuidValidate(model.id)).toBeDefined();
+    expect(model.name).not.toBeNull();
+    expect(model.id).not.toBeNull();
+    expect(StubModel.mockFactory).toHaveBeenCalled();
+
+    model = await StubModel.factory().make({
+      id: "000a6c80-3659-44de-b763-29d53f0212a7",
+      name: "Test",
+    });
+    expect(model.id).toEqual("000a6c80-3659-44de-b763-29d53f0212a7");
+    expect(model.name).toBe("Test");
+    expect(StubModel.mockFactory).toHaveBeenCalledTimes(1);
   });
 });

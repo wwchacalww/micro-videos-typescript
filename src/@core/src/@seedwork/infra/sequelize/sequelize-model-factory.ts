@@ -4,7 +4,12 @@ export class SequelizeModelFactory {
   async create(data?) {
     return this.model.create(data ? data : this.factoryProps());
   }
-  make() {}
+
+  make(data?) {
+    return this.model.build(data ? data : this.factoryProps());
+  }
+
   async bulkCreate() {}
+
   bulkMake() {}
 }
