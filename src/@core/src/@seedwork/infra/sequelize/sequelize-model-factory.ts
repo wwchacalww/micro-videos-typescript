@@ -1,15 +1,35 @@
-export class SequelizeModelFactory {
-  constructor(private model, private factoryProps: any) {}
+import { Model } from "sequelize-typescript";
 
-  async create(data?) {
-    return this.model.create(data ? data : this.factoryProps());
+export class SequelizeModelFactory<ModelClass extends Model, ModelProps = any> {
+  private _count = 1;
+
+  constructor(private model, private defaultFactoryProps: () => ModelProps) {}
+
+  count(count: number) {
+    this._count = count;
+    return this;
+  }
+  async create(data?: ModelProps): Promise<ModelClass> {
+    return this.model.create(data ? data : this.defaultFactoryProps());
   }
 
-  make(data?) {
-    return this.model.build(data ? data : this.factoryProps());
+  make(data?: ModelProps): ModelClass {
+    return this.model.build(data ? data : this.defaultFactoryProps());
   }
 
-  async bulkCreate() {}
+  async bulkCreate(
+    factoryProps?: (index: number) => ModelProps
+  ): Promise<ModelClass[]> {
+    const data = new Array(this._count)
+      .fill(factoryProps ? factoryProps : this.defaultFactoryProps)
+      .map((factory, index) => factory(index));
+    return this.model.bulkCreate(data);
+  }
 
-  bulkMake() {}
+  bulkMake(factoryProps?: (index: number) => ModelProps): ModelClass[] {
+    const data = new Array(this._count)
+      .fill(factoryProps ? factoryProps : this.defaultFactoryProps)
+      .map((factory, index) => factory(index));
+    return this.model.bulkCreate(data);
+  }
 }
