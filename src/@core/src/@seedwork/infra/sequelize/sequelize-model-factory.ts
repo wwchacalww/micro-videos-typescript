@@ -30,6 +30,6 @@ export class SequelizeModelFactory<ModelClass extends Model, ModelProps = any> {
     const data = new Array(this._count)
       .fill(factoryProps ? factoryProps : this.defaultFactoryProps)
       .map((factory, index) => factory(index));
-    return this.model.bulkCreate(data);
+    return this.model.bulkBuild(data);
   }
 }

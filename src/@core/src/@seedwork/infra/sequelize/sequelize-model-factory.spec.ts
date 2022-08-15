@@ -123,54 +123,47 @@ describe("SequelizeModelFactory Unit Tests", () => {
     expect(StubModel.mockFactory).toHaveBeenCalledTimes(2);
   });
 
-  test("bulkMake method using count= 1", async () => {
-    let models = await StubModel.factory().bulkMake();
+  test("bulkMake method using count = 1", async () => {
+    let models = StubModel.factory().bulkMake();
+
     expect(models).toHaveLength(1);
-    expect(models[0].name).not.toBeNull();
     expect(models[0].id).not.toBeNull();
-    expect(StubModel.mockFactory).toHaveBeenCalled();
-
-    let modelFound = await StubModel.findByPk(models[0].id);
-    expect(models[0].id).toEqual(modelFound.id);
-    expect(models[0].name).toEqual(modelFound.name);
-
-    models = await StubModel.factory().bulkMake(() => ({
-      id: "000a6c80-3659-44de-b763-29d53f0212a7",
-      name: "Test",
-    }));
-    expect(models[0].id).toEqual("000a6c80-3659-44de-b763-29d53f0212a7");
-    expect(models[0].name).toEqual("Test");
+    expect(models[0].name).not.toBeNull();
     expect(StubModel.mockFactory).toHaveBeenCalledTimes(1);
-    modelFound = await StubModel.findByPk(models[0].id);
-    expect(models[0].id).toEqual(modelFound.id);
-    expect(models[0].name).toEqual(modelFound.name);
+
+    models = StubModel.factory().bulkMake(() => ({
+      id: "5490020a-e866-4229-9adc-aa44b83234c4",
+      name: "test",
+    }));
+
+    expect(models).toHaveLength(1);
+    expect(models[0].id).toBe("5490020a-e866-4229-9adc-aa44b83234c4");
+    expect(models[0].name).toBe("test");
+    expect(StubModel.mockFactory).toHaveBeenCalledTimes(1);
   });
 
   test("bulkMake method using count > 1", async () => {
-    let models = await StubModel.factory().count(2).bulkMake();
+    let models = StubModel.factory().count(2).bulkMake();
+
     expect(models).toHaveLength(2);
-    expect(models[0].name).not.toBeNull();
-    expect(models[0].id).not.toBeNull();
-    expect(models[1].name).not.toBeNull();
-    expect(models[1].id).not.toBeNull();
     expect(StubModel.mockFactory).toHaveBeenCalledTimes(2);
+    expect(models[0].id).not.toBeNull();
+    expect(models[0].name).not.toBeNull();
+    expect(models[1].id).not.toBeNull();
+    expect(models[1].name).not.toBeNull();
+    expect(models[0].id).not.toBe(models[1].name);
 
-    let modelFound1 = await StubModel.findByPk(models[0].id);
-    expect(models[0].id).toEqual(modelFound1.id);
-    expect(models[0].name).toEqual(modelFound1.name);
-    let modelFound2 = await StubModel.findByPk(models[1].id);
-    expect(models[1].id).toEqual(modelFound2.id);
-    expect(models[1].name).toEqual(modelFound2.name);
-
-    models = await StubModel.factory()
+    models = StubModel.factory()
       .count(2)
       .bulkMake(() => ({
         id: chance.guid({ version: 4 }),
-        name: "Test",
+        name: "test",
       }));
+
+    expect(models).toHaveLength(2);
     expect(models[0].id).not.toBe(models[1].id);
-    expect(models[0].name).toEqual("Test");
-    expect(models[1].name).toEqual("Test");
+    expect(models[0].name).toBe("test");
+    expect(models[1].name).toBe("test");
     expect(StubModel.mockFactory).toHaveBeenCalledTimes(2);
   });
 });
