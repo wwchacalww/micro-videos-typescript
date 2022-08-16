@@ -16,4 +16,6 @@ No repositório de Categoria temos os seguintes requisitos:
 - [X] Se no filtro não existir um parâmetro de ordenação, precisa ordenar por padrão pelo created_at.
 - [X] Antes de enviar seu projeto certifique-se que seus testes estão todos passando.
 
-
+## Configuração de Ambiente NestJs
+ - [ ] Nestjs/Config
+ - [ ] 
