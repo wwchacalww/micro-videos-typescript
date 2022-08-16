@@ -1,7 +1,15 @@
 import { config as readEnv } from "dotenv";
 import { join } from "path";
 
-function makeConfig(envFile) {
+type Config = {
+  db: {
+    vendor: any;
+    host: string;
+    logging: boolean;
+  };
+};
+
+function makeConfig(envFile): Config {
   const output = readEnv({ path: envFile });
   return {
     db: {
