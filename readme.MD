@@ -17,5 +17,6 @@ No repositório de Categoria temos os seguintes requisitos:
 - [X] Antes de enviar seu projeto certifique-se que seus testes estão todos passando.
 
 ## Configuração de Ambiente NestJs
- - [ ] Nestjs/Config
- - [ ] 
+ - [X] Nestjs/Config
+ - [X] Validação .env com Joi
+ - [X] Testes do ConfigModule
