@@ -16,4 +16,5 @@ export default {
     '@fc/micro\\-videos/(.*)$':
       '<rootDir>/../../../node_modules/@fc/micro-videos/dist/$1',
   },
+  setupFilesAfterEnv: ['../../@core/src/@seedwork/domain/tests/jest.ts'],
 };
