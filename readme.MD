@@ -20,3 +20,6 @@ No repositório de Categoria temos os seguintes requisitos:
  - [X] Nestjs/Config
  - [X] Validação .env com Joi
  - [X] Testes do ConfigModule
+ - [X] Declarando o Repository do Sequelize no CategorieModule
+ - [X] Integração do Sequelize com Nestjs
+ - [X] Teste DatabaseModule
