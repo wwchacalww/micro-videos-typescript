@@ -23,3 +23,8 @@ No repositório de Categoria temos os seguintes requisitos:
  - [X] Declarando o Repository do Sequelize no CategorieModule
  - [X] Integração do Sequelize com Nestjs
  - [X] Teste DatabaseModule
+
+## CategoriesModule
+ - [X] Testes de integração em controllers
+ - [X] Criar classe para apresentar dados 
+ - [X] Teste do CategoryPresenter

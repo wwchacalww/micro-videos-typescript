@@ -50,7 +50,7 @@ describe('CategoriesController integration test', () => {
       request: {
         name: 'Filme teste',
       },
-      expectOutput: {
+      expectPresenter: {
         name: 'Filme teste',
         description: null,
         is_active: true,
@@ -61,7 +61,7 @@ describe('CategoriesController integration test', () => {
         name: 'Filme teste',
         description: 'terror',
       },
-      expectOutput: {
+      expectPresenter: {
         name: 'Filme teste',
         description: 'terror',
         is_active: true,
@@ -73,7 +73,7 @@ describe('CategoriesController integration test', () => {
         description: 'terror',
         is_active: false,
       },
-      expectOutput: {
+      expectPresenter: {
         name: 'Filme teste',
         description: 'terror',
         is_active: false,
@@ -84,7 +84,7 @@ describe('CategoriesController integration test', () => {
         name: 'Filme teste',
         is_active: false,
       },
-      expectOutput: {
+      expectPresenter: {
         name: 'Filme teste',
         description: null,
         is_active: false,
@@ -94,23 +94,23 @@ describe('CategoriesController integration test', () => {
 
   test.each(arrange)(
     'with request $request',
-    async ({ request, expectOutput }) => {
-      const output = await controller.create(request);
-      const entity = await repository.findById(output.id);
+    async ({ request, expectPresenter }) => {
+      const presenter = await controller.create(request);
+      const entity = await repository.findById(presenter.id);
 
       expect(entity).toMatchObject({
-        id: output.id,
+        id: presenter.id,
         name: request.name,
-        description: output.description,
-        is_active: output.is_active,
-        created_at: output.created_at,
+        description: presenter.description,
+        is_active: presenter.is_active,
+        created_at: presenter.created_at,
       });
 
-      expect(output.id).toBe(entity.id);
-      expect(output.name).toBe(expectOutput.name);
-      expect(output.description).toBe(expectOutput.description);
-      expect(output.is_active).toBe(expectOutput.is_active);
-      expect(output.created_at).toStrictEqual(entity.created_at);
+      expect(presenter.id).toBe(entity.id);
+      expect(presenter.name).toBe(expectPresenter.name);
+      expect(presenter.description).toBe(expectPresenter.description);
+      expect(presenter.is_active).toBe(expectPresenter.is_active);
+      expect(presenter.created_at).toStrictEqual(entity.created_at);
     },
   );
 });
